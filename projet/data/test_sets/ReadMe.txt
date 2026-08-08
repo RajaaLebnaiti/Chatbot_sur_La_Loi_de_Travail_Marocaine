@@ -1,0 +1,1 @@
+Ce fichier contient une base de données avec des exemples de: (questions + réponses + articles) pour RAGAS.

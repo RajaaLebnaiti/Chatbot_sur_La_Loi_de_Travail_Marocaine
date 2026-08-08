@@ -1,0 +1,7 @@
+langchain-community
+langchain-ollama
+langchain-chroma
+pypdf
+chromadb
+
+# pip install -r requirements.txt
