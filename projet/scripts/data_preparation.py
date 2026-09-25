@@ -8,7 +8,7 @@ from langchain_ollama import OllamaEmbeddings
 
 import re 
 
-
+from google.colab import drive
 
 # 1. Load document
 def load_documents(file_path:str) -> list:
@@ -59,9 +59,14 @@ def get_embeddings()-> OllamaEmbeddings:
 # 6. save data (embeddings) in chroma db   
 
 def store_chromaDb(embedding_model: OllamaEmbeddings, chunks: list) -> Chroma:
+    drive.mount('/content/drive')
+    persist_directory = '/content/drive/MyDrive/Chatbot_Loi_Travail/chroma_db'
+    
     vector_store = Chroma.from_documents(
     documents= chunks,
-    embedding= embedding_model
+    embedding= embedding_model,
+    #persist_directory='./chroma_db'
+    persist_directory= persist_directory
     )
     return vector_store
 

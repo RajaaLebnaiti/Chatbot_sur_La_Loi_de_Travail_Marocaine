@@ -3,5 +3,6 @@ langchain-ollama
 langchain-chroma
 pypdf
 chromadb
-
+rank_bm25
+sentence_transformers
 # pip install -r requirements.txt
