@@ -1,8 +1,12 @@
 langchain-community
 langchain-ollama
 langchain-chroma
+langchain-classic
+langchain-core
+flashrank
 pypdf
 chromadb
 rank_bm25
 sentence_transformers
+google-colab
 # pip install -r requirements.txt

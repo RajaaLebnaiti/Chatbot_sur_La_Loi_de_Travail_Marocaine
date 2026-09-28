@@ -8,7 +8,11 @@ from langchain_classic.retrievers.contextual_compression import ContextualCompre
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from langchain_classic.retrievers.document_compressors import CrossEncoderReranker
 
-from google.colab import drive # type: ignore
+from google.colab import drive 
+
+
+
+
 
 # 1. récupération des embeddings de chromadb et colab
 
