@@ -74,14 +74,28 @@ def reranking(hybrid_retriever: EnsembleRetriever, top_n = 5) -> ContextualCompr
     
     return final_retriever
 
-    
+
+# 5.  Pipeline finale
+
+def build_final_retriever(top_k: int = 10, top_n: int = 5) -> ContextualCompressionRetriever:
+    vector_store = get_embeddings()
+    documents = convert_to_text(vector_store=vector_store)
+    hybrid_retriever = hybrid_search(
+        documents=documents,
+        vector_store=vector_store,
+        top_k=top_k,
+    )
+    return reranking(hybrid_retriever=hybrid_retriever, top_n=top_n)
+
+
+
 def main():
     query = str(input("Veuillez saisir votre query: \n"))
     
-    vector_store = get_embeddings()
-    documents = convert_to_text(vector_store= vector_store)
-    hybrid_retriever = hybrid_search(documents= documents, vector_store= vector_store, top_k= 10)
-    final_retriever = reranking(hybrid_retriever= hybrid_retriever, top_n= 3)
+    
+    final_retriever = build_final_retriever(top_k= 10, top_n= 5)
+    
+    
     
     final_docs = final_retriever.invoke(query)
     print("Les résultats sont : \n")
