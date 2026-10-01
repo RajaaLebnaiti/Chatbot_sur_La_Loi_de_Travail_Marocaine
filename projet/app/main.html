@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conseil Juridique Maroc - Droit du Travail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="logo-container">
+                <i class="fas fa-flag"></i>
+            </div>
+            <div class="header-text">
+                <h1>Conseil Juridique Maroc</h1>
+                <p>Droit du travail marocain - Assistance IA</p>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>En ligne • Spécialisé en droit du travail marocain</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <div class="action-card" onclick="fillInput('Quel est le salaire minimum au Maroc ?')">
+                <div class="action-title">
+                    <i class="fas fa-coins"></i>
+                    Salaire minimum
+                </div>
+                <div class="action-desc">SMIG et SMAG</div>
+            </div>
+            <div class="action-card" onclick="fillInput('Combien de jours de congé annuel ai-je droit ?')">
+                <div class="action-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Congés payés
+                </div>
+                <div class="action-desc">Durée et conditions</div>
+            </div>
+            <div class="action-card" onclick="fillInput('Quelles sont les conditions de licenciement ?')">
+                <div class="action-title">
+                    <i class="fas fa-file-contract"></i>
+                    Licenciement
+                </div>
+                <div class="action-desc">Procédures légales</div>
+            </div>
+            <div class="action-card" onclick="fillInput('Comment se calcule l\'indemnité de fin de service ?')">
+                <div class="action-title">
+                    <i class="fas fa-calculator"></i>
+                    Indemnités
+                </div>
+                <div class="action-desc">Fin de contrat</div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-header bot">
+                    <i class="fas fa-robot"></i>
+                    <span>Conseil Juridique</span>
+                </div>
+                <div class="message-content">
+                    Bonjour ! Je suis votre assistant juridique spécialisé dans le droit du travail marocain. Posez-moi vos questions sur les contrats de travail, les congés, les licenciements, la sécurité sociale, etc.
+                </div>
+                <div class="message-time">Aujourd'hui à 10:00</div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <i class="fas fa-exclamation-triangle"></i>
+            Cet assistant fournit des informations sur le droit du travail marocain. Pour des conseils spécifiques à votre situation, consultez un avocat qualifié.
+        </div>
+
+        <div class="chat-input-area">
+            <textarea 
+                class="message-input" 
+                id="messageInput" 
+                placeholder="Posez votre question sur le droit du travail marocain..." 
+                onkeypress="handleKeyPress(event)"
+            ></textarea>
+            <button class="send-button" id="sendButton" onclick="sendMessage()" title="Envoyer">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+
+</body> 
+</html>
