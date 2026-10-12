@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings
 from langchain_core.documents import Document
@@ -8,10 +9,9 @@ from langchain_classic.retrievers.contextual_compression import ContextualCompre
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from langchain_classic.retrievers.document_compressors import CrossEncoderReranker
 
-from google.colab import drive 
+# pas la bibliothéque mais plutot le fichier google.py !!!!!!
 
-
-
+from google.colab import drive
 
 
 # 1. récupération des embeddings de chromadb et colab
@@ -19,7 +19,17 @@ from google.colab import drive
 
 def get_embeddings()-> Chroma:
     drive.mount('/content/drive')
-    persist_dir = '/content/drive/MyDrive/Chatbot_Loi_Travail/chroma_db'
+    colab_persist_dir = Path('/content/drive/MyDrive/Chatbot_Loi_Travail/chroma_db')
+    local_persist_dir = (
+        Path(__file__).resolve().parents[1]
+        / 'content' / 'drive' / 'Chatbot_Loi_Travail' / 'chroma_db' / 'chroma_db'
+    )
+    persist_dir = (
+        Path(os.environ['CHROMA_PERSIST_DIRECTORY'])
+        if os.environ.get('CHROMA_PERSIST_DIRECTORY')
+        else local_persist_dir if (local_persist_dir / 'chroma.sqlite3').exists()
+        else colab_persist_dir
+    )
     
     # 2. initialisation du modèle embeddings et chargement des documents de chromadb
     embedding_model = OllamaEmbeddings(model="qwen3-embedding:0.6b")
@@ -39,6 +49,11 @@ def convert_to_text(vector_store: Chroma) -> list:
     documents = []
     for content, metadata in zip(raw_data['documents'], raw_data['metadatas']):
         documents.append(Document(page_content= content, metadata = metadata))
+    if not documents:
+        raise ValueError(
+            "La base Chroma ne contient aucun document. Vérifiez CHROMA_PERSIST_DIRECTORY "
+            "ou exécutez d'abord data_preparation.py."
+        )
     return documents
 
 
@@ -89,7 +104,7 @@ def build_final_retriever(top_k: int = 10, top_n: int = 5) -> ContextualCompress
 
 
 
-def main():
+"""def main():
     query = str(input("Veuillez saisir votre query: \n"))
     
     
@@ -108,4 +123,4 @@ def main():
     
 
 if __name__ == "__main__":
-    main()
+    main()"""

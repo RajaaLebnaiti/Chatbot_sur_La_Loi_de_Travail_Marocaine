@@ -1,10 +1,13 @@
 from retrieval_pipeline import build_final_retriever
 
-
+import ollama
 from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+
+MODEL_NAME = "qwen3:8b"
 
 
 SYSTEM_PROMPT = """
@@ -120,10 +123,17 @@ def format_docs(docs):
 def get_rag_chain():
     
     prompt = ChatPromptTemplate.from_template(SYSTEM_PROMPT)
+
+    # Pour s'assurer que le modèle ollama est installé localement, sinon le télécharger automatiquement
+    installed_models = ollama.list().models
+    if not any(model.model == MODEL_NAME for model in installed_models):
+        print(f"Téléchargement du modèle {MODEL_NAME}...")
+        ollama.pull(MODEL_NAME)
+        print("Téléchargement terminé.")
     
     # définir le llm
     llm = ChatOllama(
-        model= "qwen3:8b",
+        model=MODEL_NAME,
         temperature= 0.0, 
         top_p= 0.9,
         repeat_penalty= 1.1
@@ -155,3 +165,6 @@ def main():
         response = rag_chain.invoke(query)
         print("=== RÉPONSE ===\n")
         print(response)
+        
+if __name__ == "__main__":
+    main()

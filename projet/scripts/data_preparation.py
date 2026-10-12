@@ -72,7 +72,7 @@ def store_chromaDb(embedding_model: OllamaEmbeddings, chunks: list) -> Chroma:
 
 # Pipeline complet:
 
-def main(file_path:str):
+"""def main(file_path:str):
     pages = load_documents(file_path= file_path)
     full_text = convert_pages_to_text(pages= pages)
     chunks = chunking(full_text= full_text)
@@ -86,4 +86,4 @@ def main(file_path:str):
 
 
 if __name__ == "__main__":
-    main(r"C:\Users\hp\Desktop\Chatbot_sur_La_Loi_de_Travail_Marocaine\projet\data\raw\Code du travail.pdf")
+    main(r"C:\Users\hp\Desktop\Chatbot_sur_La_Loi_de_Travail_Marocaine\projet\data\raw\Code du travail.pdf")"""
