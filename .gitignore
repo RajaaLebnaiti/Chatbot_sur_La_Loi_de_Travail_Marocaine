@@ -13,6 +13,6 @@ __pycache__/
 .env
 
 
-projet/app/*
+projet/app/
 
-projet/scripts/*
+projet/scripts/
