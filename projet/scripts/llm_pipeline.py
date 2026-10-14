@@ -154,7 +154,7 @@ def get_rag_chain():
     
     return rag_chain
 
-def main():
+"""def main():
     rag_chain = get_rag_chain()
     while True:
         query = input("\nPosez votre question juridique (ou 'q' pour quitter) : ")
@@ -168,3 +168,4 @@ def main():
         
 if __name__ == "__main__":
     main()
+"""

@@ -14,8 +14,14 @@ from langchain_classic.retrievers.document_compressors import CrossEncoderRerank
 from google.colab import drive
 
 
-# 1. récupération des embeddings de chromadb et colab
 
+# VARIABLE GLOBALE de mise en cache
+_CACHED_RETRIEVER = None
+
+
+
+
+# 1. récupération des embeddings de chromadb et colab
 
 def get_embeddings()-> Chroma:
     drive.mount('/content/drive')
@@ -93,6 +99,12 @@ def reranking(hybrid_retriever: EnsembleRetriever, top_n = 5) -> ContextualCompr
 # 5.  Pipeline finale
 
 def build_final_retriever(top_k: int = 10, top_n: int = 5) -> ContextualCompressionRetriever:
+    global _CACHED_RETRIEVER
+    if _CACHED_RETRIEVER is not None:
+        return _CACHED_RETRIEVER  # Retourne l'instance déjà en mémoire (Instantané !)
+        
+    print("Initialisation unique du retriever hybride et du reranker...")
+    
     vector_store = get_embeddings()
     documents = convert_to_text(vector_store=vector_store)
     hybrid_retriever = hybrid_search(
@@ -100,7 +112,10 @@ def build_final_retriever(top_k: int = 10, top_n: int = 5) -> ContextualCompress
         vector_store=vector_store,
         top_k=top_k,
     )
-    return reranking(hybrid_retriever=hybrid_retriever, top_n=top_n)
+    _CACHED_RETRIEVER = reranking(hybrid_retriever=hybrid_retriever, top_n=top_n)
+    return _CACHED_RETRIEVER
+
+    #return reranking(hybrid_retriever=hybrid_retriever, top_n=top_n)
 
 
 
